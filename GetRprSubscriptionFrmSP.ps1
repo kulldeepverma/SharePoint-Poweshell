@@ -8,7 +8,7 @@ Description     : Only tested with SharePoint Integrated reports,It will help yo
 Add-PSSnapin Microsoft.SharePoint.PowerShell -erroraction SilentlyContinue
 
 #Variables
-$PathForExport="C:\PSExport" #path where report in CSV format will export. file name would be ReportSubscription.csv
+$PathForExport="C:\PSExport" #path where report in CSV format will export. file name will be ReportSubscription.csv
 $siteUri = "<Change With URL>" #SSRS report server URL/Link ex. http://hostname/sites/ssrs/reports
 
 #It will check folder is exist or not.If it is not then, It will folder.
