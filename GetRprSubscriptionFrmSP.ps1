@@ -5,9 +5,12 @@ Title           : Get List of subscribed SSRS reports.
 Description     : Only tested with SharePoint Integrated reports,It will help you to list out the Subscribed SSRS report inlcuding SubscriptionID, Owner,Path,VirtualPath,Report,DeliverySettings,Description,Status,Active,LastExecuted,LastExecutedSpecified,ModifiedBy,ModifiedDate,EventType and IsDataDriven.
 #>
 
-Add-PSSnapin Microsoft.SharePoint.PowerShell -erroraction SilentlyContinue
+if($null -eq (Get-PSSnapin "Microsoft.SharePoint.PowerShell"))
+{
+    Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue 
+}
 
-#Variables
+#Declare variables
 $PathForExport="C:\PSExport" #path where report in CSV format will export. file name will be ReportSubscription.csv
 $siteUri = "<Change With URL>" #SSRS report server URL/Link ex. http://hostname/sites/ssrs/reports
 
@@ -19,6 +22,7 @@ if((Test-Path -Path $PathForExport) -ne $true)
 }
 $proxy = New-WebServiceProxy -Uri "$siteUri/_vti_bin/ReportServer/ReportService2010.asmx" -UseDefaultCredential 
 $rptColl= $proxy.ListSubscriptions($siteUri) | select SubscriptionID, Owner,Path,VirtualPath,Report,DeliverySettings,Description,Status,Active,LastExecuted,LastExecutedSpecified,ModifiedBy,ModifiedDate,EventType,IsDataDriven
+
 #Array to hold result $Items=@()
 $Items = @()
 Write-Host "Total Item needs to be exported: " $rptColl.Count -foregroundcolor Green
@@ -32,3 +36,4 @@ $rptColl | foreach {
     $Items += $ExportItem
 }
 $Items | Export-CSV "$PathForExport\ReportSubscription.csv" -NoTypeInformation 
+Write-Host "SSRS Report subscription has been exported." -ForegroundColor Green
