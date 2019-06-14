@@ -7,7 +7,7 @@ Description     : This is to save SharePoint list as template.
 
 
 #to ensure the SharePoint PowerShell snapin is loaded
-if((Get-PSSnapin "Microsoft.SharePoint.PowerShell") -eq $null)
+if($null -eq (Get-PSSnapin "Microsoft.SharePoint.PowerShell"))
 {
     Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue 
 }
