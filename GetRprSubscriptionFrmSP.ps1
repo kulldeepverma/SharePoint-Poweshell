@@ -19,7 +19,7 @@ if((Test-Path -Path $PathForExport) -ne $true)
 }
 $proxy = New-WebServiceProxy -Uri "$siteUri/_vti_bin/ReportServer/ReportService2010.asmx" -UseDefaultCredential 
 $rptColl= $proxy.ListSubscriptions($siteUri) | select SubscriptionID, Owner,Path,VirtualPath,Report,DeliverySettings,Description,Status,Active,LastExecuted,LastExecutedSpecified,ModifiedBy,ModifiedDate,EventType,IsDataDriven
-#Array to Hold Result - PSObjects
+#Array to hold result $Items=@()
 $Items = @()
 Write-Host "Total Item needs to be exported: " $rptColl.Count -foregroundcolor Green
 $rptColl | foreach {
