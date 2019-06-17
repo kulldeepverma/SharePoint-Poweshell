@@ -28,7 +28,7 @@ Function DownloadStp($SPFolderURL, $localFolderPath) {
     $SPFolder = $oWeb.GetFolder($SPFolderURL)
     foreach ($File in $SPFolder.Files) {
         #By using below if condition you will get all the templates which are created today.
-        if ($File.TimeCreated -gt ($(Get-Date).AddDays(-365))) {
+        if ($File.TimeCreated -gt ($(Get-Date).AddDays(-1))) {
             $Data = $File.OpenBinary()
             $FilePath = Join-Path $localFolderPath $File.Name
             [System.IO.File]::WriteAllBytes($FilePath, $data)
